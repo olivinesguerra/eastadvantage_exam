@@ -26,7 +26,6 @@ class UserRepository
         $users = User::select('*');
 
         if ($params->has("role")) {
-            var_dump($params->has("role"));
              $users->where('role','=',$params->input('role'));
         }
         $users->offset((int)$page*(int)$limit);
