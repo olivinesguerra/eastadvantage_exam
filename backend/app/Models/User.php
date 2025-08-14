@@ -51,6 +51,7 @@ class User extends Authenticatable
         return [
             'id' => 'string',
             'email_verified_at' => 'datetime',
+            'role' => 'array'
             // 'password' => 'hashed',
         ];
     }

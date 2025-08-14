@@ -18,7 +18,7 @@ class UserService
     public function register(Request $request) {
         try {
             DB::beginTransaction();
-            $user = $this->user_repository->get_user_by_email($request["email"]);
+            $user = $this->user_repository->get_user_by_email_and_role($request["email"], $request["role"]);
 
             if (!is_null($user)) {
                 throw  new  Exception("User already exist", 422);
