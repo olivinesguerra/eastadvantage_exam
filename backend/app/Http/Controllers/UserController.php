@@ -19,7 +19,8 @@ class UserController extends Controller
 
     public function getList(Request $request){
         try {
-            return $this->responseSuccess();
+            $data = $this->user_service->getUsers($request);
+            return $this->responseSuccess($data);
         } catch (Exception $e) {
             return $this->handleException($e);
         }

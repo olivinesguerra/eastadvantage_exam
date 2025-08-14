@@ -35,7 +35,19 @@ class UserService
         }
     }
 
-    public function getUsers() {
+    public function getUsers(Request $request) {
+        $page = 0;
+        $limit = 50;
 
+        if ($request->has("page")) {
+            $page = (int)$request->page*(int)$request->limit;
+        } 
+
+        if ($request->has("limit")) {
+            $limit = (int)$request->limit;
+        }
+
+        $users = $this->user_repository->get_users($request, $page, $limit);
+        return $users;
     }
 }

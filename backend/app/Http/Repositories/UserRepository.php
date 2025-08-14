@@ -15,11 +15,23 @@ class UserRepository
 
     public function create_user($params) 
     {
-        return User::create($params);
+        return User::create([
+            "role" => $params->role,
+            "email" => $params->email,
+            "name" => $params->name,
+        ]);
     }
 
-    public function get_users($query, $page, $limit) {
-        // return User::where('email', "=" ,$email)->first();
-        return null;
+    public function get_users($params, $page, $limit) {
+        var_dump($params->input("role"));
+        $users = User::select('*');
+
+        if ($params->has("role")) {
+            var_dump($params->has("role"));
+             $users->where('role','=',$params->input('role'));
+        }
+        $users->offset((int)$page*(int)$limit);
+        $users->take($limit);
+        return $users->get();
     }
 }
