@@ -23,7 +23,6 @@ class UserRepository
     }
 
     public function get_users($params, $page, $limit) {
-        var_dump($params->input("role"));
         $users = User::select('*');
 
         if ($params->has("role")) {
