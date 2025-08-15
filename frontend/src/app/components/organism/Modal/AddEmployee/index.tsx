@@ -37,30 +37,33 @@ export const AddEmployee = (props: IAddEmployeeProps) => {
     };
 
   return (
-    <Modal dismissible show={props?.open} onClose={() => props?.onClose()} popup>
-        <form className="flex flex-col bg-black w-3/4" onSubmit={handleSubmit((data) => onSubmit(data))}>
-            <ModalHeader>Add Employee</ModalHeader>
-            <ModalBody>
-                <input className="flex border text-black placeholder-indigo-900 mb-[10px] py-[5px] px-[10px]"  {...register('name', {required: true})} placeholder="Full Name"></input>
+    <>
+        <Modal size="md" dismissible show={props?.open} onClose={() => props?.onClose()} popup position={"center"}>
+            <form className="flex flex-col p-[50px]" onSubmit={handleSubmit((data) => onSubmit(data))}>
+                <ModalHeader>Add Employee</ModalHeader>
+                <ModalBody>
+                    <input className="flex w-full border text-black placeholder-indigo-900 mb-[10px] py-[5px] px-[10px]"  {...register('name', {required: true})} placeholder="Full Name"></input>
 
-                <input className="flex border text-black placeholder-indigo-900 py-[5px] px-[10px]" {...register('name', {required: true})} placeholder="Email"></input>
-                
-                <select 
-                    className="flex mt-[10px] text-black border py-[5px] px-[10px]" 
-                    id="role" 
-                    {...register("role", { required: true })}
-                >
-                    <option className="text-black" value={0}>AUTHOR</option>
-                    <option className="text-black" value={1}>EDITOR</option>
-                    <option className="text-black" value={2}>SUBSCRIBER</option>
-                    <option className="text-black" value={3}>ADMINISTRATOR</option>
-                </select>
+                    <input className="flex  w-full border text-black placeholder-indigo-900 py-[5px] px-[10px]" {...register('name', {required: true})} placeholder="Email"></input>
+                    
+                    <select 
+                        className=" w-full mt-[10px] text-black border py-[5px] px-[10px]" 
+                        id="role" 
+                        {...register("role", { required: true })}
+                    >
+                        <option className="text-black" value={0}>AUTHOR</option>
+                        <option className="text-black" value={1}>EDITOR</option>
+                        <option className="text-black" value={2}>SUBSCRIBER</option>
+                        <option className="text-black" value={3}>ADMINISTRATOR</option>
+                    </select>
 
-            </ModalBody>
-            <ModalFooter>
-                <button type="submit" className="text-white bg-black mt-[10px] flex items-center justify-center py-[5px] px-[10px]">Submit</button>
-            </ModalFooter>
-        </form>
-    </Modal>
+                </ModalBody>
+                <ModalFooter>
+                    <button type="submit" className=" w-full text-white bg-black mt-[10px] flex items-center justify-center py-[5px] px-[10px] rounded">Submit</button>
+                </ModalFooter>
+            </form>
+        </Modal>
+    </>
+
   );
 }
