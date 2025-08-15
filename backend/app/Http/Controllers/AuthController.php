@@ -28,8 +28,8 @@ class AuthController extends Controller
                 return$this->handleValidationException($err);
             }
 
-            $this->user_service->register($request);
-            return $this->responseSuccess();
+            $user = $this->user_service->register($request);
+            return $this->responseSuccess($user);
         } catch (Exception $e) {
             return $this->handleException($e);
         }

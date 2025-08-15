@@ -2,19 +2,12 @@
 import React, { MouseEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react";
+import { useRouter } from 'next/navigation';
 
 import { Modal } from "../../components/organism";
+import { User } from "../../util/constrant";
 
-interface User {
-  id?: string,
-  name?: string,
-  email?: string,
-  email_verified_at?: boolean | null,
-  role?: number[],
-  lock_version?: number | null,
-  created_at?: string,
-  updated_at?: string
-};
+import { getRoles } from "../../util/parser";
 
 interface GetUsersResponse {
   code?: number,
@@ -24,6 +17,8 @@ interface GetUsersResponse {
 }
 
 export default function Page() {
+  const router = useRouter();
+
   const [openModal, setOpenModal] = useState(false);
   const [data, setData] = useState<User[]>([]);
 
@@ -41,23 +36,10 @@ export default function Page() {
     setOpenModal(true);
   };
 
-  const getRoles = (roles: number[]) => {
-    let role = "";
-
-    for (const index in roles) {
-      if(roles[index] === 0) {
-        role += "Auditor "
-      } else if (roles[index] === 1) {
-        role += "Editor "
-      } else if (roles[index] === 2) {
-        role += "Subscriber "
-      } else if (roles[index] === 3) {
-        role += "Administrator "
-      }
-    } 
-
-    return role;
-  }
+  const onItemClicked = (e: MouseEvent<HTMLButtonElement>, user: User) => {
+    e.preventDefault();
+    router.push(`/pages/profile/${user?.id}`);
+  };
 
   return (
     <div className="flex h-screen flex-col w-full justify-start items-center p-[30px]">
@@ -88,7 +70,7 @@ export default function Page() {
                     <TableCell className="text-center text-black">{item?.email}</TableCell>
                     <TableCell className="text-center text-black">{getRoles(item?.role || [])}</TableCell>
                     <TableCell>
-                      <button className="text-center text-black">
+                      <button className="text-center text-black" onClick={(e: MouseEvent<HTMLButtonElement>) => onItemClicked(e, item)}>
                         View
                       </button>
                     </TableCell>
@@ -104,6 +86,9 @@ export default function Page() {
         open={openModal}
         onClose={() => {
           setOpenModal(false);
+        }}
+        onCloseAndRedirect={(user: User) => {
+          router.push(`/pages/profile/${user?.id}`);
         }}
       />
 

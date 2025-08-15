@@ -50,4 +50,9 @@ class UserService
         $users = $this->user_repository->get_users($request, $page, $limit);
         return $users;
     }
+
+    public function getUser($id) {
+        $id = $this->user_repository->get_user_by_id($id);
+        return $id;
+    }
 }

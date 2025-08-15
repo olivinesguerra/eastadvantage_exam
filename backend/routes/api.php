@@ -13,4 +13,5 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group(['prefix' => 'user'], function () {
     Route::get('/', [UserController::class, 'getList']);
+    Route::get('/{id}', [UserController::class, 'getUser']);
 });

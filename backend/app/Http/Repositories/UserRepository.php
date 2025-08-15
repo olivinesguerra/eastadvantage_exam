@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Repositories;
-
+use Exception;
 use App\Models\User;
 
 class UserRepository
@@ -31,5 +31,14 @@ class UserRepository
         $users->offset((int)$page*(int)$limit);
         $users->take($limit);
         return $users->get();
+    }
+
+    public function get_user_by_id($id) {
+        $user = User::where("id", $id)->first();
+
+        if (is_null($user)) {
+            throw new Exception("User does'nt not exist.");
+        }
+        return $user;
     }
 }

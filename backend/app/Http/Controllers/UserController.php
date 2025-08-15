@@ -26,4 +26,13 @@ class UserController extends Controller
         }
     }
 
+    public function getUser($id){
+        try {
+            $data = $this->user_service->getUser($id);
+            return $this->responseSuccess($data);
+        } catch (Exception $e) {
+            return $this->handleException($e);
+        }
+    }
+
 }
